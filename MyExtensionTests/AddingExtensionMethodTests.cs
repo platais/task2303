@@ -11,7 +11,7 @@ namespace MyExtensionTests
         {
             var number1 = 1;
             var number2 = 2;
-            var result = number1.MyAddOneToAnotherAttribute(number2);
+            var result = number1.AddOneToAnother(number2);
             Assert.IsType<int>(result);
         }
 
@@ -20,7 +20,7 @@ namespace MyExtensionTests
         {
             var text1 = "aaaa";
             var text2 = "bbbbb";
-            var result = text1.MyAddOneToAnotherAttribute(text2);
+            var result = text1.AddOneToAnother(text2);
             Assert.IsType<string>(result);
         }
 
@@ -29,7 +29,7 @@ namespace MyExtensionTests
         {
             var text1 = "aaaa";
             var number1 = 1;
-            var result = text1.MyAddOneToAnotherAttribute(number1);
+            var result = text1.AddOneToAnother(number1);
             Assert.Multiple(
                 () => Assert.True(text1.GetType() != number1.GetType()),
                 () => Assert.Contains("error,", result)
@@ -41,7 +41,7 @@ namespace MyExtensionTests
         {
             var collection = new List<string>();
             var floatNumber = 1.1f;
-            var result = collection.MyAddOneToAnotherAttribute(floatNumber);
+            var result = collection.AddOneToAnother(floatNumber);
             Assert.Multiple(
                 () => Assert.True(collection.GetType() != floatNumber.GetType()),
                 () => Assert.Contains("error,", result)

@@ -2,7 +2,7 @@
 {
     public static class MyExtensions
     {
-        public static dynamic MyAddOneToAnotherAttribute(this object o1, object o2)
+        public static dynamic AddOneToAnother(this object o1, object o2)
         {
             var isO1AndO2String = o1.GetType() == typeof(string) && o2.GetType() == typeof(string);
             var isO1AndO2Int = o1.GetType() == typeof(int) && o2.GetType() == typeof(int);

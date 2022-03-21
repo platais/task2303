@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
 
 namespace homeWorkTill2303
 {
     class Program
     {
-        private static IDataRepo _dataRepo = DataAccessService.GetIDataRepo();
-
         static void Main()
         {
             Console.WriteLine("This console application will ask you to input two arguments." +
@@ -23,41 +19,16 @@ namespace homeWorkTill2303
             Console.WriteLine("Input second argument and press Enter:");
             var inputArgument2 = Console.ReadLine();
 
-            var isInputArgument1Int = int.TryParse(inputArgument1, out int inputInt1);
-            var isInputArgument2Int = int.TryParse(inputArgument2, out int inputInt2);
+            UtilityService.CheckInputShowAddition(inputArgument1, inputArgument2);
 
-            if (isInputArgument1Int && isInputArgument2Int)
-                DisplayAdditionOfTwoValidParameters(inputInt1, inputInt2);
-            else
-                DisplayAdditionOfTwoValidParameters(inputArgument1, inputArgument2);
-
-            var isSavedSuccessfully = _dataRepo.SaveParametersInDb(new List<AttributesModel>() {
-                new AttributesModel(JsonSerializer.Serialize(inputArgument1), inputArgument1.GetType().ToString()),
-                new AttributesModel(JsonSerializer.Serialize(inputArgument2), inputArgument2.GetType().ToString())
-            });
+            var isSavedSuccessfully = UtilityService.FillSaveModelAndSaveInDb(inputArgument1, inputArgument2);
             var savedOrNotString = isSavedSuccessfully ? "saved successfully" : "not saved";
             Console.WriteLine($"Values {savedOrNotString}");
 
-            GetAndPrintSavedAttributes();
+            UtilityService.GetAndPrintSavedAttributes();
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
-        }
-
-        private static void DisplayAdditionOfTwoValidParameters<T, T1>(T param1, T1 param2)
-        {
-            Console.WriteLine("\nAddition result (or error message):");
-            Console.WriteLine(param1.MyAddOneToAnotherAttribute(param2));
-        }
-
-        private static void GetAndPrintSavedAttributes()
-        {
-            var allAttributeModelsSavedInDb = _dataRepo.GetAllParameterObjects();
-            Console.WriteLine("\nAttributes that have been saved in db and their types:");
-            foreach (var model in allAttributeModelsSavedInDb)
-            {
-                Console.WriteLine($"attribute: \"{model.Attribute}\", its type: \"{model.Type}\"");
-            }
         }
     }
 }

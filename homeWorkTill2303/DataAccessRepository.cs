@@ -14,13 +14,18 @@ namespace homeWorkTill2303
 
     public class DataAccessRepository : IDataRepo
     {
-        private readonly string connString = "Server=localhost;User id=sa;Password=Passw0rd!;TrustServerCertificate=true";
+        private readonly Settings _settings;
+
+        public DataAccessRepository(Settings settings)
+        {
+            _settings = settings;
+        }
 
         public IEnumerable<AttributesModel> GetAllParameterObjects()
         {
             try
             {
-                using (var conn = new SqlConnection(connString))
+                using (var conn = new SqlConnection(_settings.ConnectionStrings.DefaultConnection))
                 {
                     return conn.Query<AttributesModel>("select * from taskAttributes");
                 }
@@ -37,7 +42,7 @@ namespace homeWorkTill2303
             var isSaved = false;
             try
             {
-                using (var conn = new SqlConnection(connString))
+                using (var conn = new SqlConnection(_settings.ConnectionStrings.DefaultConnection))
                 {
                     string processQuery = "INSERT INTO taskAttributes VALUES (@Attribute, @Type)";
                     if (conn.Execute(processQuery, modelList) > 0)
