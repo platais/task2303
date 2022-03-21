@@ -14,10 +14,22 @@ namespace homeWorkTill2303
                 "\nPress any key on your keyboard to continue, " +
                 "\n if you cant find ANY key, press Space bar on your keyboard.");
             Console.ReadKey();
-            Console.WriteLine("Input first argument and press Enter:");
-            var inputArgument1 = Console.ReadLine();
-            Console.WriteLine("Input second argument and press Enter:");
-            var inputArgument2 = Console.ReadLine();
+            var inputArgument1 = "";
+            var inputArgument2 = "";
+            do
+            {
+                Console.WriteLine("Input first argument (can't be empty) and press Enter:");
+                inputArgument1 = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(inputArgument1));
+
+            do
+            {
+                Console.WriteLine("Input second argument (can't be empty) and press Enter:");
+                inputArgument2 = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(inputArgument2));
+
 
             UtilityService.CheckInputShowAddition(inputArgument1, inputArgument2);
 
