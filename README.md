@@ -26,6 +26,7 @@ As at the begining I wasnt sure about input attribute types so I started to over
 may take different type of attributes, etc, like there was a chance to load them from json, etc :)
 - float like numbers are not supported as numbers and added like strings
 - by design it suppose to save also types, but currently its saving all as string as currently function receive parameters as string.
+- console.Writeline should be replaced with logger service for errors
 - ?
 
 ## Design
