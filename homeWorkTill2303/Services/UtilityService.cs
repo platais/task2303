@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
+using homeWorkTill2303.Services;
+using Microsoft.Extensions.Logging;
 
 namespace homeWorkTill2303
 {
@@ -17,10 +20,13 @@ namespace homeWorkTill2303
         public static void GetAndPrintSavedAttributes()
         {
             var allAttributeModelsSavedInDb = _dataRepo.GetAllParameterObjects();
-            Console.WriteLine("\nAttributes that have been saved in db and their types:");
-            foreach (var model in allAttributeModelsSavedInDb)
+            if (allAttributeModelsSavedInDb.Any())
             {
-                Console.WriteLine($"attribute: \"{model.Attribute}\", its type: \"{model.Type}\"");
+                Console.WriteLine("\nAttributes that have been saved in db and their types:");
+                foreach (var model in allAttributeModelsSavedInDb)
+                {
+                    Console.WriteLine($"attribute: \"{model.Attribute}\", its type: \"{model.Type}\"");
+                }
             }
         }
 
@@ -52,7 +58,7 @@ namespace homeWorkTill2303
 
         public static IDataRepo GetIDataRepo()
         {
-            return new DataAccessRepository(ConfigurationService.GetSettings());
+            return new DataAccessRepository(ConfigurationService.GetSettings(), LoggerService.GetLogger());
         }
     }
 }

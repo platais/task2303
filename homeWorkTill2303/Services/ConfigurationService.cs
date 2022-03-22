@@ -10,8 +10,7 @@ namespace homeWorkTill2303
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build();
-            var xxx = config.GetSection("Settings").Get<Settings>();
-            return xxx;
+            return config.GetSection("Settings").Get<Settings>();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace homeWorkTill2303
 {
@@ -15,10 +16,12 @@ namespace homeWorkTill2303
     public class DataAccessRepository : IDataRepo
     {
         private readonly Settings _settings;
+        private readonly ILogger _logger;
 
-        public DataAccessRepository(Settings settings)
+        public DataAccessRepository(Settings settings, ILogger logger)
         {
             _settings = settings;
+            _logger = logger;
         }
 
         public IEnumerable<AttributesModel> GetAllParameterObjects()
@@ -32,7 +35,7 @@ namespace homeWorkTill2303
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.LogError(e.Message);
             }
             return Enumerable.Empty<AttributesModel>();
         }
@@ -51,7 +54,7 @@ namespace homeWorkTill2303
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.LogError(e.Message);
             }
             return isSaved;
         }
