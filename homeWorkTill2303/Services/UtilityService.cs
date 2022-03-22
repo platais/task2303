@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using Microsoft.Extensions.Configuration;
 
 namespace homeWorkTill2303
 {
@@ -25,7 +24,7 @@ namespace homeWorkTill2303
             }
         }
 
-        public static bool FillSaveModelAndSaveInDb(string parameter1, string parameter2)
+        public static bool FillSaveModelAndSaveInDb<T, T1>(T parameter1, T1 parameter2)
         {
             return _dataRepo.SaveParametersInDb(new List<AttributesModel>() {
                 new AttributesModel(JsonSerializer.Serialize(parameter1), parameter1.GetType().ToString()),
@@ -35,13 +34,20 @@ namespace homeWorkTill2303
 
         public static void CheckInputShowAddition(string parameter1, string parameter2)
         {
-            var isInputArgument1Int = int.TryParse(parameter1, out int inputInt1);
-            var isInputArgument2Int = int.TryParse(parameter2, out int inputInt2);
-
-            if (isInputArgument1Int && isInputArgument2Int)
-                DisplayAdditionOfTwoValidParameters(inputInt1, inputInt2);
+            var isBothParametersInt = CheckIfBothInputIntAndGetValues(parameter1, parameter2, out int parameterInt1, out int parameterInt2);
+            if (isBothParametersInt)
+                DisplayAdditionOfTwoValidParameters(parameterInt1, parameterInt2);
             else
                 DisplayAdditionOfTwoValidParameters(parameter1, parameter2);
+        }
+
+        public static bool CheckIfBothInputIntAndGetValues(string parameter1, string parameter2, out int outIntOne, out int outIntTwo)
+        {
+            var isFirstInt = int.TryParse(parameter1, out int outInt1);
+            outIntOne = outInt1;
+            var isSecondInt = int.TryParse(parameter2, out int outInt2);
+            outIntTwo = outInt2;
+            return isFirstInt && isSecondInt;
         }
 
         public static IDataRepo GetIDataRepo()
