@@ -1,7 +1,7 @@
 # task2303
 happyAttributes
 
-Usage
+## Usage
 
 Simple console application that will ask you to input two arguments, 
 depending on argument type it will try to add them or will give you an error.
@@ -9,11 +9,18 @@ depending on argument type it will try to add them or will give you an error.
 - Float-like (float, decimal, etc) arguments are not supported so they will be added together like strings.
 - Mixed will be counted as string.
 Result will be shown on the screen.
+You should connect it to your database and make a table there, just replace connection string with yours in appsettings.json file
+Query to make this table:
+
+>CREATE TABLE [dbo].[taskAttributes](
+> [id] [int] IDENTITY(1,1) NOT NULL,
+> [attribute] [nvarchar](max) NOT NULL,
+> [type] [varchar](100) NULL)
 
 Attributes will be saved to database as strings. 
 All attributes that has been inputted will be printed to screen.
 
-Known issues
+## Known issues
 
 As at the begining I wasnt sure about input attribute types so I started to overdone this task by designing functions that 
 may take different type of attributes, etc, like there was a chance to load them from json, etc :)
@@ -21,7 +28,7 @@ may take different type of attributes, etc, like there was a chance to load them
 - by design it suppose to save also types, but currently its saving all as string as currently function receive parameters as string.
 - ?
 
-Design
+## Design
 
 - Main funcion mostly holds UI and some main function calls
 - All "business logic" is inside UtilityService.
@@ -37,7 +44,7 @@ of course we dont use the fully it in the current implimentation.
 - There is another project with several xUnit Tests to check if this function works as expected.
 - Tried to organize everything as seperated as I could so that its easier to update / extend this application 
 
-Screenshot
+## Screenshot
 
 ![Screenshot 2022-03-22 at 00 16 48](https://user-images.githubusercontent.com/7956231/159386784-54066aa8-a812-43c2-ad72-8b19d34a60bd.png)
 
