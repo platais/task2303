@@ -26,7 +26,7 @@ As at the begining I wasnt sure about input attribute types so I started to over
 may take different type of attributes, etc, like there was a chance to load them from json, etc :)
 - float like numbers are not supported as numbers and added like strings
 - by design it suppose to save also types, but currently its saving all as string as currently function receive parameters as string.
-- console.Writeline should be replaced with logger service for errors
+- console.Writeline should be replaced with logger service for errors [FIXED]
 - ?
 
 ## Design
@@ -44,6 +44,8 @@ and is able to sum ints and add strings along it may give error if types dont ma
 of course we dont use the fully it in the current implimentation. 
 - There is another project with several xUnit Tests to check if this function works as expected.
 - Tried to organize everything as seperated as I could so that its easier to update / extend this application 
+- Added logger service, so Exceptions if they may arise are not logged to console via console.WriteLine, 
+thats not sopposed to do that.
 
 ## Screenshot
 
