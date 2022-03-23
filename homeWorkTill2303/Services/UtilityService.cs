@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using homeWorkTill2303.Services;
-using Microsoft.Extensions.Logging;
 
 namespace homeWorkTill2303
 {
@@ -11,23 +9,14 @@ namespace homeWorkTill2303
     {
         private static IDataRepo _dataRepo = GetIDataRepo();
 
-        public static void DisplayAdditionOfTwoValidParameters<T, T1>(T param1, T1 param2)
+        public static string DisplayAdditionOfTwoValidParameters<T, T1>(T param1, T1 param2)
         {
-            Console.WriteLine("\nAddition result (or error message):");
-            Console.WriteLine(param1.AddOneToAnother(param2));
+            return Convert.ToString(param1.AddOneToAnother(param2));
         }
 
-        public static void GetAndPrintSavedAttributes()
+        public static IEnumerable<AttributesModel> GetSavedAttributes()
         {
-            var allAttributeModelsSavedInDb = _dataRepo.GetAllParameterObjects();
-            if (allAttributeModelsSavedInDb.Any())
-            {
-                Console.WriteLine("\nAttributes that have been saved in db and their types:");
-                foreach (var model in allAttributeModelsSavedInDb)
-                {
-                    Console.WriteLine($"attribute: \"{model.Attribute}\", its type: \"{model.Type}\"");
-                }
-            }
+            return _dataRepo.GetAllParameterObjects();
         }
 
         public static bool FillSaveModelAndSaveInDb<T, T1>(T parameter1, T1 parameter2)
@@ -38,13 +27,13 @@ namespace homeWorkTill2303
             });
         }
 
-        public static void CheckInputShowAddition(string parameter1, string parameter2)
+        public static string CheckInputShowAddition(string parameter1, string parameter2)
         {
             var isBothParametersInt = CheckIfBothInputIntAndGetValues(parameter1, parameter2, out int parameterInt1, out int parameterInt2);
             if (isBothParametersInt)
-                DisplayAdditionOfTwoValidParameters(parameterInt1, parameterInt2);
+                return DisplayAdditionOfTwoValidParameters(parameterInt1, parameterInt2);
             else
-                DisplayAdditionOfTwoValidParameters(parameter1, parameter2);
+                return DisplayAdditionOfTwoValidParameters(parameter1, parameter2);
         }
 
         public static bool CheckIfBothInputIntAndGetValues(string parameter1, string parameter2, out int outIntOne, out int outIntTwo)

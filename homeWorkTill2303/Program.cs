@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace homeWorkTill2303
 {
@@ -30,14 +31,26 @@ namespace homeWorkTill2303
             }
             while (string.IsNullOrEmpty(inputArgument2));
 
-
-            UtilityService.CheckInputShowAddition(inputArgument1, inputArgument2);
+            Console.WriteLine("\nAddition result (or error message):");
+            Console.WriteLine(UtilityService.CheckInputShowAddition(inputArgument1, inputArgument2));
 
             var isSavedSuccessfully = UtilityService.FillSaveModelAndSaveInDb(inputArgument1, inputArgument2);
             var savedOrNotString = isSavedSuccessfully ? "saved successfully" : "not saved";
             Console.WriteLine($"Values {savedOrNotString}");
 
-            UtilityService.GetAndPrintSavedAttributes();
+
+
+            var attributesModel = UtilityService.GetSavedAttributes();
+            if (attributesModel.Any())
+            {
+                Console.WriteLine("\nAttributes that have been saved in db and their types:");
+                foreach (var model in attributesModel)
+                {
+                    Console.WriteLine($"attribute: \"{model.Attribute}\", its type: \"{model.Type}\"");
+                }
+            }
+            else
+                Console.WriteLine("\nNo attributes to show, probably you dont have any saved.");
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
